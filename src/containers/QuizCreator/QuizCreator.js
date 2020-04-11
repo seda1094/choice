@@ -4,6 +4,7 @@ import './QuizCreator.css'
 import Button from '../../components/UI/Button/Button';
 import { createControl } from '../../form/formFramework';
 import Input from '../../components/UI/input/Input';
+import { Auxiliary } from '../../hoc/Auxiliary/Auxiliary';
 
 
 
@@ -12,7 +13,7 @@ function createFormControls() {
         question: createControl({
             label: 'Input question',
             errorMessage: 'Please input question'
-        }, {required: true}),
+        }, { required: true }),
         option1: createOptionControl(1),
         option2: createOptionControl(2),
         option3: createOptionControl(3),
@@ -25,9 +26,9 @@ function createOptionControl(number) {
     return createControl(
         {
             id: number,
-            label: 'Option '+number,
+            label: 'Option ' + number,
             errorMessage: 'Please input text'
-        }, {required: true}
+        }, { required: true }
     )
 }
 class QuizCreator extends Component {
@@ -46,24 +47,26 @@ class QuizCreator extends Component {
 
     }
 
-    changeHandler = () => {
-        
+    changeHandler = (value, controlName) => {
+
     }
-    renderControls(){
+    renderControls() {
         return Object.keys(this.state.formControls).map((controlName, index) => {
             const control = this.state.formControls[controlName]
             return (
-                <Input 
-                key = {index}
-                label = {control.label}
-                value = {control.value}
-                valid = {control.valid}
-                shouldValidate = {!!control.shouldValidate}
-                touched = {control.touched}
-                errorMessage = {control.errorMessage}
-                onChange= {event => this.changeHandler(event.target.value, controlName)}
-
-                />
+                <Auxiliary>
+                    <Input
+                        key={index}
+                        label={control.label}
+                        value={control.value}
+                        valid={control.valid}
+                        shouldValidate={!!control.shouldValidate}
+                        touched={control.touched}
+                        errorMessage={control.errorMessage}
+                        onChange={event => this.changeHandler(event.target.value, controlName)}
+                    />
+                    {index === 0 ? <hr /> : null}
+                </Auxiliary>
             )
         })
     }
