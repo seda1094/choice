@@ -1,2 +1,2 @@
-export const Auxiliary = props => props.children
+export default (props)  => props.children
 
