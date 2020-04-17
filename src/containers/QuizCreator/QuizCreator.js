@@ -11,8 +11,8 @@ import { createQuizQuestion, finishCreateQuiz } from '../../store/actions/create
 
 function createOptionControl(number) {
   return createControl({
-    label: `Вариант ${number}`,
-    errorMessage: 'Значение не может быть пустым',
+    label: `Option ${number}`,
+    errorMessage: "Input can't be empty",
     id: number
   }, {required: true})
 }
@@ -20,8 +20,8 @@ function createOptionControl(number) {
 function createFormControls() {
   return {
     question: createControl({
-      label: 'Введите вопрос',
-      errorMessage: 'Вопрос не может быть пустым'
+      label: 'Input question',
+      errorMessage: "Input can't be empty"
     }, {required: true}),
     option1: createOptionControl(1),
     option2: createOptionControl(2),
@@ -125,7 +125,7 @@ class QuizCreator extends Component {
 
   render() {
     const select = <Select
-      label="Выберите правильный ответ"
+      label="Choose right answer"
       value={this.state.rightAnswerId}
       onChange={this.selectChangeHandler}
       options={[

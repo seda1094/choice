@@ -15,7 +15,7 @@ export function fetchQuizes() {
         try {
             const res = await axios.get('/quiz.json')
             const quizes = []
-            console.log(res.data);
+            // console.log(res.data);
 
             Object.keys(res.data).forEach((key, index) => {
                 quizes.push({
@@ -23,11 +23,11 @@ export function fetchQuizes() {
                     name: `Test No ${index + 1}`
                 })
             })
-            console.log(quizes);
+            // console.log(quizes);
             dispatch(fetchQuizesSuccess(quizes))
             
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             dispatch(fetchQuizesError())
         }
     }
@@ -142,4 +142,8 @@ export function retryQuiz() {
     return {
         type: QUIZ_RETRY
     }
+}
+
+export function autoLogin() {
+  
 }

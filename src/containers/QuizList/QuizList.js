@@ -44,6 +44,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+    // console.log(state);
+    
     return {
         quizes: state.quiz.quizes,
         loading: state.quiz.loading

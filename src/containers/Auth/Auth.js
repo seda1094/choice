@@ -80,7 +80,7 @@ class Auth extends Component {
     }
 
     onChangeHandler = (event, controlName) => {
-        console.log(`${controlName}: `, event.target.value)
+        // console.log(`${controlName}: `, event.target.value)
         const formControls = { ...this.state.formControls }
         const control = { ...formControls[controlName] }
 

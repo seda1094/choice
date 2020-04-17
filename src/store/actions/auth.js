@@ -16,7 +16,7 @@ export function auth(email, password, isLogin) {
         }
 
         const res = await axios.post(url, authData)
-        const data = res.data
+        const data = await res.data
 
         const expirationDate = new Date(new Date().getTime() + data.expiresIn * 1000)
 
@@ -30,9 +30,9 @@ export function auth(email, password, isLogin) {
 }
 
 export function logout() {
-    localStorage.removeItem('token', data.idToken)
-    localStorage.removeItem('userId', data.localId)
-    localStorage.removeItem('expirationDate', expirationDate)
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('expirationDate')
     return {
         type: AUTH_LOGOUT
     }
@@ -51,5 +51,24 @@ export function authSuccess(token) {
     return {
         type: AUTH_SUCCESS,
         token
+    }
+}
+
+export function autoLogin(token) {
+    return dispatch => {
+        const token = localStorage.getItem('token')
+        if (!token) {
+            dispatch(logout())
+        }
+        else{
+            const expirationDate = new Date(localStorage.getItem('expirationDate'))
+            if(expirationDate <= new Date()){
+                dispatch(logout())
+            }
+            else{
+                dispatch(authSuccess(token))
+                dispatch(autoLogout((expirationDate.getTime()-new Date().getTime()) / 1000))
+            }
+        }
     }
 }
